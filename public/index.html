@@ -4,40 +4,186 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hour Vault - 任务板</title>
-  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/global.css">
 </head>
 <body>
 
   <nav class="top-nav">
-    <div style="display: flex; align-items: center; gap: 32px;">
-      <h2 style="font-weight: 900; letter-spacing: 1px;">⏳</h2>
-      <div style="display: flex; gap: 24px; font-weight: 600; color: var(--text-sub);">
-        <span style="color: var(--primary-color);">📝 </span>
-        <span>🛒 </span>
-        <span>⭐ </span>
-      </div>
+  
+  <!-- 📦 第一个大盒子：左侧功能区 (Logo + 菜单) -->
+  <div style="display: flex; align-items: center; gap: 32px;">
+    
+    <!-- Theme Toggle -->
+    <div id="theme-toggle" style="display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; transition: transform 0.2s ease;">
+      <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(-8deg);">
+        <path d="M4 4 Q 12 3 20 4.5" />
+        <path d="M5 4.5 C 5 10 9 12 12 13 C 15 12 19 10 19 4.5" />
+        <path d="M12 13 L 12 18" stroke-width="2" stroke-dasharray="2 3" />
+        <path d="M5 20 C 5 14 9 13 12 13 C 15 13 19 14 19 19.5" />
+        <path d="M4 20 Q 12 21 20 19.5" />
+        <path d="M9 19.5 Q 12 16 15 19.5" stroke-width="1.5" />
+      </svg>
     </div>
 
-    <div style="display: flex; align-items: center; gap: 16px;">
-      <div style="font-weight: bold; color: var(--credit-color);">🛡️ 150 </div>
-      <div style="font-weight: bold; color: var(--zeal-color);">❤️ 32 </div>
+    <!-- 导航菜单 -->
+    <div class="nav-menu" style="display: flex; gap: 28px; font-weight: 700; color: var(--text-sub); font-size: 15px;">
       
-      <div style="display: flex; align-items: center; gap: 12px; background: var(--bg-color); padding: 6px 16px; border-radius: 50px;">
-        <div style="display: flex; flex-direction: column; align-items: flex-end;">
-          <span style="font-size: 14px; font-weight: bold;">雲上淵</span>
-          <span style="font-size: 12px; color: var(--text-sub);">Lv.3 (24h)</span>
-        </div>
-        <div style="width: 36px; height: 36px; border-radius: 50%; background: #dfe6e9;"></div>
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--primary-color); cursor: pointer;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(4deg);">
+          <path d="M6 3 C 4 3 3 4 3 7 L 3 17 C 3 20 4 21 6 21 L 18 21 C 20 21 21 20 21 17 L 21 9 L 15 3 Z" />
+          <path d="M15 3 L 15 7 C 15 8 16 9 21 9" />
+          <path d="M8 11 C 10 10 12 12 14 11" />
+          <path d="M8 15 C 10 14 13 16 16 15" />
+        </svg>
+        <span>任务板</span>
       </div>
+
+      <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; transition: color 0.2s;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(-4deg);">
+          <path d="M4 8 C 4 8 3 20 6 21 L 18 21 C 21 20 20 8 20 8 Z" />
+          <path d="M8 8 C 8 2 16 2 16 8" />
+          <path d="M10 14 C 11 15.5 13 15.5 14 14" />
+        </svg>
+        <span>商店</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; transition: color 0.2s;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(5deg);">
+          <path d="M12 3 C 12 8 14 11 19 12 C 14 13 12 16 12 21 C 12 16 10 13 5 12 C 10 11 12 8 12 3 Z" />
+          <path d="M19 4 L 19.5 5.5 L 21 6 L 19.5 6.5 L 19 8 L 18.5 6.5 L 17 6 L 18.5 5.5 Z" stroke-width="1.5" />
+        </svg>
+        <span>收藏</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(3deg);">
+          <path d="M21 11 L 6 5 L 9 11 L 6 17 Z" />
+          <path d="M9 11 L 21 11" />
+          <path d="M 2 13 C 1 9 5 8 5 11" stroke-width="1.5" stroke-dasharray="2 3" />
+        </svg>
+        <span>发布</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(-3deg);">
+          <path d="M 10 14 L 10 7 A 7 7 0 1 0 17 14 Z" />
+          <path d="M 14 10 L 14 3 A 7 7 0 0 1 21 10 Z" />
+        </svg>
+        <span>数据</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(8deg);">
+          <path d="M 12 4 C 9 4 7 7 7 11 L 5 17 H 19 L 17 11 C 17 7 15 4 12 4 Z" />
+          <path d="M 10 17 A 2 2 0 0 0 14 17" />
+          <path d="M 3 10 C 2 12 2 14 3 16" stroke-width="1.5" />
+          <path d="M 21 10 C 22 12 22 14 21 16" stroke-width="1.5" />
+        </svg>
+        <span>通知</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(5deg);">
+          <path d="M12 3 C 14 3 14 5 16 5 C 18 5 19 6 19 8 C 19 10 21 10 21 12 C 21 14 19 14 19 16 C 19 18 18 19 16 19 C 14 19 14 21 12 21 C 10 21 10 19 8 19 C 6 19 5 18 5 16 C 5 14 3 14 3 12 C 3 10 5 10 5 8 C 5 6 6 5 8 5 C 10 5 10 3 12 3 Z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span>设置</span>
+      </div>
+
     </div>
-  </nav>
+  </div>
+
+  <!-- 📦 第二个大盒子：右侧游戏信息与个人名片区 -->
+  <div style="display: flex; align-items: center; gap: 24px;">
+    
+    <!-- 代币框：加上了手绘底座 -->
+    <div style="display: flex; gap: 20px; background-color: var(--card-bg); padding: 6px 16px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; border: 2px solid var(--comic-line); box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);">
+      
+      <!-- 心忱 -->
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--zeal-color);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(-6deg);">
+          <path d="M12 21 C 12 21 3 14 3 8 C 3 4 8 3 12 7 C 16 3 21 4 21 8 C 21 14 12 21 12 21 Z" />
+          <path d="M17 7 Q 19 9 18 11" stroke-width="1.5" />
+        </svg>
+        <span style="font-weight: 800;">32 热忱</span>
+      </div>
+
+      <!-- 信用 -->
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--credit-color);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(-4deg);">
+          <circle cx="12" cy="9" r="6" />
+          <path d="M 10 9 L 12 11 L 14 7" stroke-width="2" />
+          <path d="M 8.5 13.5 L 6 21 L 12 18 L 18 21 L 15.5 13.5" />
+        </svg>
+        <span style="font-weight: 800;">150 信用</span>
+      </div>
+
+    </div>
+      
+    <!-- 个人名片区：一字未改，等你重做 -->
+    <div style="display: flex; align-items: center; gap: 12px; background: var(--bg-color); padding: 6px 16px; border-radius: 50px;">
+      <div style="display: flex; flex-direction: column; align-items: flex-end;">
+        <span style="font-size: 14px; font-weight: bold;">雲上淵</span>
+        <span style="font-size: 12px; color: var(--text-sub);">Lv.3 (24h)</span>
+      </div>
+      <div style="width: 36px; height: 36px; border-radius: 50%; background: #dfe6e9;"></div>
+    </div>
+    
+  </div>
+
+</nav>
 
   <main style="padding: 40px; max-width: 1200px; margin: 0 auto;">
-    <div class="b-card">
-      <h3 style="margin-bottom: 8px;">示例任务：图书馆整理书籍</h3>
-      <p style="color: var(--text-sub);">帮助图书管理员完成下午的书籍归档工作。这是第一张符合 BewlyBewly 风格的测试卡片！</p>
+    
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;">
+      <h1># 学校任务池</h1>
+      <span style="color: var(--text-sub); font-weight: bold; cursor: pointer;">🔍 筛选分类</span>
     </div>
-  </main>
 
+    <div class="masonry-grid">
+      
+      <div class="b-card masonry-card">
+        <div class="tag-bubble tag-primary">体力劳动</div>
+        <div class="tag-bubble tag-secondary">紧急</div>
+        <h3 style="margin-bottom: 8px;">协助搬运校运会器材</h3>
+        <p style="color: var(--text-sub); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+          下午4点在体育馆集合，需要3个男生帮忙把跳高垫子搬到操场。大概需要半小时。
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 16px;">
+          <span style="font-size: 14px; font-weight: bold;">👤 体育组王老师</span>
+          <span style="font-weight: bold; color: var(--zeal-color);">+ 5 热忱</span>
+        </div>
+      </div>
+
+      <div class="b-card masonry-card">
+        <div class="tag-bubble tag-primary">脑力辅导</div>
+        <h3 style="margin-bottom: 8px;">AP 物理 C 力学考前冲刺答疑</h3>
+        <p style="color: var(--text-sub); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+          本人目前物理C模考满分。因为下周就要大考了，想找几个同学一起过一遍历年的转动惯量和简谐振动大题。会在自习室黑板上推导公式，欢迎有一定基础的同学来听。
+          <br><br>
+          要求：提前把 2023 年的真题做完。
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 16px;">
+          <span style="font-size: 14px; font-weight: bold;">👤 向阳 (高二)</span>
+          <span style="font-weight: bold; color: var(--zeal-color);">+ 12 热忱</span>
+        </div>
+      </div>
+
+      <div class="b-card masonry-card">
+        <div class="tag-bubble tag-primary">创意设计</div>
+        <div class="tag-bubble tag-secondary">线上</div>
+        <h3 style="margin-bottom: 8px;">FRC 机器人队伍海报设计</h3>
+        <p style="color: var(--text-sub); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+          我们需要一张用于招新的海报，要求赛博朋克风格。文案和基本素材我已经整理好了，急需一位会用 PS 或 AI 的同学帮忙排版。
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 16px;">
+          <span style="font-size: 14px; font-weight: bold;">👤 11319 Polaris</span>
+          <span style="font-weight: bold; color: var(--zeal-color);">+ 8 热忱</span>
+        </div>
+      </div>
+
+    </div>
+    </main>
+    <script src="common.js"></script>
 </body>
 </html>

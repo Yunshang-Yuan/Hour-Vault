@@ -1,0 +1,128 @@
+/* 1. 定义全站主题色 (默认浅色治愈漫画风) */
+:root {
+  --bg-color: #fcfaf6;       
+  --card-bg: #ffffff;        
+  --text-main: #3d3d3d;      
+  --text-sub: #9ca3af;       
+  
+  --primary-color: #818cf8;  
+  --zeal-color: #fb7185;     
+  --credit-color: #34d399;   
+  --comic-line: #2d3436;     
+
+  --nav-bg-glass: rgba(252, 250, 246, 0.65); /* 导航栏半透明底色 */
+  --dot-color: rgba(0, 0, 0, 0.04);          /* 网点颗粒颜色 (浅色模式下是黑点) */
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #1a1a1a;       
+  --card-bg: #242424;        
+  --text-main: #e5e5e5;      
+  --text-sub: #9ca3af;       
+  --comic-line: #555555;     
+  
+  --nav-bg-glass: rgba(26, 26, 26, 0.65);  
+  --dot-color: rgba(255, 255, 255, 0.06);  
+}
+
+/* 2. 基础重置与漫画网点纸背景 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  /* 使用变量 --dot-color 画网点 */
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 14px 14px; 
+  color: var(--text-main);
+  padding-top: 80px; 
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* 3. 顶部导航栏 (透出网点纸 + 完美毛玻璃) */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  
+  /* 使用变量作为背景色和网点 */
+  background-color: var(--nav-bg-glass); 
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 14px 14px;
+  background-position: top left;
+  
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: none; 
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 1000;
+  transition: background-color 0.4s ease;
+}
+
+/* 4. 真正的手绘粗糙感卡片 */
+.b-card {
+  background-color: var(--card-bg);
+  /* 手绘魔法：用极度不对称的四个角圆角，营造出笔触的扭曲感和不规则感 */
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border: 2px solid var(--comic-line);
+  /* 实体阴影改为淡一点的铅笔灰，不会太生硬 */
+  box-shadow: 4px 5px 0px rgba(45, 52, 54, 0.15); 
+  padding: 24px;
+  transition: all 0.2s ease-in-out;
+}
+
+.b-card:hover {
+  /* 悬浮时，不仅抬起，还稍微“歪”一点点（旋转-1度），更有纸张随性感 */
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: 7px 8px 0px rgba(45, 52, 54, 0.2);
+}
+
+/* 5. 瀑布流任务板布局 */
+.masonry-grid {
+  column-count: 3;
+  column-gap: 24px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) { .masonry-grid { column-count: 2; } }
+@media (max-width: 600px) { .masonry-grid { column-count: 1; } }
+
+.masonry-card {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* 手绘感的气泡标签 */
+.tag-bubble {
+  display: inline-block;
+  padding: 4px 12px;
+  /* 同样使用不规则手绘圆角 */
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  font-size: 12px;
+  font-weight: 900;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  border: 1.5px solid var(--comic-line);
+  box-shadow: 2px 2px 0px rgba(45, 52, 54, 0.1);
+}
+.tag-primary { background: #e0e7ff; color: var(--text-main); }
+.tag-secondary { background: #fdfcf6; color: var(--text-main); }
+/* Logo 悬浮特效：鼠标放上去时，整个 Logo 稍微放大并回正 */
+#theme-toggle:hover {
+  transform: scale(1.05);
+}
+#theme-toggle:hover svg {
+  transform: rotate(0deg) !important;
+  transition: transform 0.3s ease;
+}
