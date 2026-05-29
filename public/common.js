@@ -12,3 +12,14 @@ themeToggleBtn.addEventListener('click', () => {
     htmlElement.setAttribute('data-theme', 'dark');
   }
 });
+
+// public/js/common.js 底部追加
+
+// 获取整个个人名片按钮
+const profileBtn = document.getElementById('profile-btn');
+
+// 绑定统一的点击响应
+profileBtn.addEventListener('click', () => {
+  console.log('点击了个人名片区域！可以在这里写打开个人主页或弹窗的代码');
+  // 比如：alert('打开雲上淵的个人中心');
+});

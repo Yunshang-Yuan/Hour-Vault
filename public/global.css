@@ -116,13 +116,44 @@ body {
   border: 1.5px solid var(--comic-line);
   box-shadow: 2px 2px 0px rgba(45, 52, 54, 0.1);
 }
-.tag-primary { background: #e0e7ff; color: var(--text-main); }
-.tag-secondary { background: #fdfcf6; color: var(--text-main); }
-/* Logo 悬浮特效：鼠标放上去时，整个 Logo 稍微放大并回正 */
+#theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+/* 2. 鼠标悬浮时的变化（这里只需要写改变的结果，不需要再写 transition 了） */
 #theme-toggle:hover {
   transform: scale(1.05);
 }
+
 #theme-toggle:hover svg {
-  transform: rotate(0deg) !important;
+  transform: rotate(0deg) !important; /* 强制回正 */
+}
+
+/* =========================================
+   个人名片整体交互特效 (彻底修复版)
+========================================= */
+
+/* 1. 整体基础状态：控制整体升降过渡 */
+#profile-btn {
+  transition: transform 0.2s ease;
+}
+
+/* 2. 整体悬浮：全部元素（名字、等级、经验条、头像）一起垂直向上平移，绝不偏转 */
+#profile-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* 3. 整体点击：全部元素一起下沉，模拟按压 */
+#profile-btn:active {
+  transform: translateY(1px);
+}
+
+/* 4. 头像基础状态：让头像拥有独立的、平滑的回弹记忆 */
+#profile-btn .profile-avatar {
   transition: transform 0.3s ease;
+}
+
+/* 5. 联动特效：当鼠标悬浮在整体上时，只有带有 .profile-avatar 的头像框会单独歪头放大！ */
+#profile-btn:hover .profile-avatar {
+  transform: scale(1.05) rotate(8deg);
 }
