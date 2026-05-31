@@ -1,4 +1,5 @@
-/* 1.全局浅色模式样式 */
+/* 1.全局样式 */
+/* 浅色模式 */
 :root {
   --primary-color: #fbbf24;  
   --zeal-color: #fb7186;     
@@ -12,17 +13,9 @@
 
   --nav-bg-glass: rgba(245, 240, 230, 0.65); 
   --dot-color: rgba(0, 0, 0, 0.07);   
-
-  /* 边框 */
-  .comic-border {
-  background-color: var(--card-bg); 
-  border: 2px solid var(--comic-line);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);
-}
 }
 
-/* 1.全局深色模式样式 */
+/* 深色模式 */
 :root[data-theme="dark"] {
   --primary-color: #fbbf24;  
   --zeal-color: #fb7185;     
@@ -36,14 +29,15 @@
   
   --nav-bg-glass: rgba(26, 26, 26, 0.65);  
   --dot-color: rgba(255, 255, 255, 0.06);  
-
-  /* 边框 */
-  .comic-border {
-  background-color: var(--card-bg); 
-  border: 2px solid var(--comic-line);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);
 }
+
+/* 2.全局素材 */
+/* 方形边框 */
+.comic-border {
+background-color: var(--card-bg); 
+border: 2px solid var(--comic-line);
+border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);
 }
 
 /* 2. 基础重置与漫画网点纸背景 */
@@ -249,8 +243,8 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
   /* 让整个胶囊栏居中，并在上下留出呼吸空间 */
   display: flex;
   justify-content: flex-start;
-  padding-left: 100px;
-  margin-top: -1px; 
+  padding-left: 115px;
+  margin-top: -7px; 
   margin-bottom: 24px;
 }
 
@@ -261,6 +255,23 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
   border-radius: 999px; /* 满级圆角，形成完美的药丸胶囊形状 */
   padding: 2px; /* 外壳和按钮之间的内边距 */
   gap: 2px;
+  position: relative;
+  z-index: 2; /* 🌟 【新增】让文字浮在水滴上面 */
+  background: transparent !important; /* 🌟 【修改】强制按钮自己永远透明 */
+}
+
+.tab-slider {
+  position: absolute;
+  top: 2px; /* 和外壳的 padding 保持一致 */
+  left: 0;
+  height: calc(100% - 4px); /* 高度 = 100% 减去上下的 padding */
+  background-color: var(--primary-color);
+  border-radius: 999px;
+  z-index: 1; /* 垫在底边 */
+  
+  /* 🌟 流动魔法：高度平滑的阻尼动画，模拟液体汇聚 */
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+              width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .tab-btn {
@@ -278,6 +289,9 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
   border-radius: 999px; /* 内部按钮也是圆角，贴合外壳 */
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative; 
+  z-index: 2; /* 🌟 【新增】让文字浮在水滴上面 */
+  background: transparent !important; /* 🌟 【修改】强制按钮自己永远透明 */
 }
 
 /* 鼠标悬浮时的文字颜色加深 */
@@ -287,7 +301,6 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 
 /* 🌟 当前选中状态 (.active) 的高光表现 */
 .tab-btn.active {
-  background-color: var(--primary-color); /* 填充主色 */
   color: var(--comic-line); /* 确保文字在黄色背景上清晰 */
 }
 
