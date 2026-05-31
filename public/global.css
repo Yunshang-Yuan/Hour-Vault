@@ -5,7 +5,7 @@
   --text-main: #3d3d3d;      
   --text-sub: #9ca3af;       
   
-  --primary-color: #818cf8;  
+  --primary-color: #fbbf24;  
   --zeal-color: #fb7185;     
   --credit-color: #34d399;   
   --comic-line: #2d3436;     
@@ -18,7 +18,7 @@
   --bg-color: #1a1a1a;       
   --card-bg: #242424;        
   --text-main: #e5e5e5;      
-  --text-sub: #9ca3af;       
+  --text-sub: #737373;     
   --comic-line: #555555;     
   
   --nav-bg-glass: rgba(26, 26, 26, 0.65);  
@@ -67,6 +67,8 @@ body {
   padding: 0 40px;
   z-index: 1000;
   transition: background-color 0.4s ease;
+  padding-left: 43px !important;
+  padding-right: 43px !important;
 }
 
 /* 4. 真正的手绘粗糙感卡片 */
@@ -117,18 +119,34 @@ body {
   box-shadow: 2px 2px 0px rgba(45, 52, 54, 0.1);
 }
 #theme-toggle svg {
-  transition: transform 0.3s ease;
-}
-
-/* 2. 鼠标悬浮时的变化（这里只需要写改变的结果，不需要再写 transition 了） */
-#theme-toggle:hover {
-  transform: scale(1.05);
+  /* x偏移1px, y偏移2px，无模糊，淡淡的黑色阴影 */
+  filter: drop-shadow(1px 2px 0px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 #theme-toggle:hover svg {
-  transform: rotate(0deg) !important; /* 强制回正 */
+  transform: rotate(0deg) !important;
+  /* 悬浮时，阴影稍微变大一点，更有立体感 */
+  filter: drop-shadow(2px 3px 0px rgba(0, 0, 0, 0.15));
 }
 
+
+/* 🌙 2. 深色模式 (夜间形态)：激活魔法蓝光！ */
+html[data-theme="dark"] #theme-toggle svg {
+  /* 阴影偏移归零，加上 4px 模糊，颜色变成主色调，变成真正的“发光” */
+  filter: drop-shadow(0px 0px 4px var(--primary-color));
+}
+
+html[data-theme="dark"] #theme-toggle:hover svg {
+  /* 悬浮时，光晕扩大，魔法感拉满 */
+  filter: drop-shadow(0px 0px 8px var(--primary-color));
+}
+
+/* 🌙 3. 深色模式下，文字也联动发光 */
+html[data-theme="dark"] #theme-toggle:hover h2 {
+  text-shadow: 0px 0px 8px rgba(251, 191, 36, 0.4);
+  transition: text-shadow 0.3s ease;
+}
 /* =========================================
    个人名片整体交互特效 (彻底修复版)
 ========================================= */
@@ -156,4 +174,57 @@ body {
 /* 5. 联动特效：当鼠标悬浮在整体上时，只有带有 .profile-avatar 的头像框会单独歪头放大！ */
 #profile-btn:hover .profile-avatar {
   transform: scale(1.05) rotate(8deg);
+}
+
+/* =========================================
+   左侧功能区 (图标联动 Tooltip 特效)
+========================================= */
+
+/* 1. 图标容器基础状态：作为悬浮窗的锚点，并自带回弹记忆 */
+.nav-item {
+  position: relative; /* 绝对定位的船锚 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* 2. 整体悬浮与点击：和名片完全一致的起伏感（不歪头！） */
+.nav-item:hover {
+  transform: translateY(-2px);
+  color: var(--primary-color) !important; /* 鼠标放上去时，图标统一变为主色亮起 */
+}
+.nav-item:active {
+  transform: translateY(1px);
+}
+
+/* 3. Tooltip 悬浮窗的默认隐藏状态 (右下角定位) */
+.nav-tooltip {
+  position: absolute;
+  top: 110%; /* 定位到图标的下方 */
+  left: 60%; /* 定位到图标偏右的位置 (右下角) */
+  
+  /* 漫画风小气泡设计 */
+  background-color: var(--text-main); /* 深色背景 */
+  color: var(--bg-color); /* 浅色文字 */
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--comic-line);
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+  white-space: nowrap; /* 保证文字不折行 */
+  
+  /* 隐藏魔法：透明度为 0，并且往下沉一点点准备滑入 */
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none; /* 防止悬浮窗挡住鼠标点击图标 */
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* 带有轻微 Q弹 感觉的缓动函数 */
+}
+
+/* 4. 见证奇迹：鼠标悬浮在图标上时，文字气泡浮现！ */
+.nav-item:hover .nav-tooltip {
+  opacity: 1;
+  transform: translateY(0); /* 滑回原位 */
 }
