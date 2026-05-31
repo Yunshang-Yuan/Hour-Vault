@@ -1,17 +1,17 @@
 /* 1. 定义全站主题色 (默认浅色治愈漫画风) */
 :root {
-  --bg-color: #fcfaf6;       
+  --bg-color: #f5f0e6;       
   --card-bg: #ffffff;        
   --text-main: #3d3d3d;      
-  --text-sub: #9ca3af;       
+  --text-sub: #666666;     
   
   --primary-color: #fbbf24;  
   --zeal-color: #fb7185;     
   --credit-color: #34d399;   
   --comic-line: #2d3436;     
 
-  --nav-bg-glass: rgba(252, 250, 246, 0.65); /* 导航栏半透明底色 */
-  --dot-color: rgba(0, 0, 0, 0.04);          /* 网点颗粒颜色 (浅色模式下是黑点) */
+  --nav-bg-glass: rgba(245, 240, 230, 0.65); /* 导航栏半透明底色 */
+  --dot-color: rgba(0, 0, 0, 0.07);          /* 网点颗粒颜色 (浅色模式下是黑点) */
 }
 
 :root[data-theme="dark"] {
@@ -192,7 +192,7 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 
 /* 2. 整体悬浮与点击：和名片完全一致的起伏感（不歪头！） */
 .nav-item:hover {
-  transform: translateY(-2px);
+  transform: translateX(-50%) translateY(0);
   color: var(--primary-color) !important; /* 鼠标放上去时，图标统一变为主色亮起 */
 }
 .nav-item:active {
@@ -202,18 +202,20 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 /* 3. Tooltip 悬浮窗的默认隐藏状态 (右下角定位) */
 .nav-tooltip {
   position: absolute;
-  top: 110%; /* 定位到图标的下方 */
-  left: 60%; /* 定位到图标偏右的位置 (右下角) */
+  top: 140%; /* 定位到图标的下方 */
+  left: 50%; /* 定位到图标偏右的位置 (右下角) */
+  transform: translateX(-50%) translateY(10px);
   
   /* 漫画风小气泡设计 */
-  background-color: var(--text-main); /* 深色背景 */
-  color: var(--bg-color); /* 浅色文字 */
+  background-color: #ffffff; /* 深色背景 */
+  color: var(--comic-line); /* 浅色文字 */
   font-size: 12px;
   font-weight: 800;
   padding: 4px 10px;
   border-radius: 8px;
   border: 1.5px solid var(--comic-line);
-  box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+  box-shadow: 1px 1.5px 0px var(--comic-line), 
+              3px 4px 0px rgba(0, 0, 0, 0.08);
   white-space: nowrap; /* 保证文字不折行 */
   
   /* 隐藏魔法：透明度为 0，并且往下沉一点点准备滑入 */
