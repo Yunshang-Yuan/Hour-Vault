@@ -1,28 +1,49 @@
-/* 1. 定义全站主题色 (默认浅色治愈漫画风) */
+/* 1.全局浅色模式样式 */
 :root {
+  --primary-color: #fbbf24;  
+  --zeal-color: #fb7186;     
+  --credit-color: #34d399;  
+  
   --bg-color: #f5f0e6;       
   --card-bg: #ffffff;        
   --text-main: #3d3d3d;      
-  --text-sub: #666666;     
-  
-  --primary-color: #fbbf24;  
-  --zeal-color: #fb7185;     
-  --credit-color: #34d399;   
+  --text-sub: #666666;      
   --comic-line: #2d3436;     
 
-  --nav-bg-glass: rgba(245, 240, 230, 0.65); /* 导航栏半透明底色 */
-  --dot-color: rgba(0, 0, 0, 0.07);          /* 网点颗粒颜色 (浅色模式下是黑点) */
+  --nav-bg-glass: rgba(245, 240, 230, 0.65); 
+  --dot-color: rgba(0, 0, 0, 0.07);   
+
+  /* 边框 */
+  .comic-border {
+  background-color: var(--card-bg); 
+  border: 2px solid var(--comic-line);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);
+}
 }
 
+/* 1.全局深色模式样式 */
 :root[data-theme="dark"] {
+  --primary-color: #fbbf24;  
+  --zeal-color: #fb7185;     
+  --credit-color: #34d399; 
+
   --bg-color: #1a1a1a;       
-  --card-bg: #242424;        
+  --card-bg: #202020;        
   --text-main: #e5e5e5;      
   --text-sub: #737373;     
-  --comic-line: #555555;     
+  --comic-line: #cacaca;     
   
   --nav-bg-glass: rgba(26, 26, 26, 0.65);  
   --dot-color: rgba(255, 255, 255, 0.06);  
+
+  /* 边框 */
+  .comic-border {
+  background-color: var(--card-bg); 
+  border: 2px solid var(--comic-line);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 2px 3px 0px rgba(45, 52, 54, 0.1);
+}
 }
 
 /* 2. 基础重置与漫画网点纸背景 */
@@ -192,8 +213,8 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 
 /* 2. 整体悬浮与点击：和名片完全一致的起伏感（不歪头！） */
 .nav-item:hover {
-  transform: translateX(-50%) translateY(0);
-  color: var(--primary-color) !important; /* 鼠标放上去时，图标统一变为主色亮起 */
+  transform: translateY(-2px); /* 恢复正常的向上微抬 2px，绝不能加 translateX */
+  color: var(--primary-color) !important;
 }
 .nav-item:active {
   transform: translateY(1px);
@@ -202,23 +223,13 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 /* 3. Tooltip 悬浮窗的默认隐藏状态 (右下角定位) */
 .nav-tooltip {
   position: absolute;
-  top: 140%; /* 定位到图标的下方 */
-  left: 50%; /* 定位到图标偏右的位置 (右下角) */
-  transform: translateX(-50%) translateY(10px);
-  
-  /* 漫画风小气泡设计 */
-  background-color: #ffffff; /* 深色背景 */
+  top: 130%; /* 定位到图标的下方 */
+  left: 60%; /* 定位到图标偏右的位置 (右下角) */
   color: var(--comic-line); /* 浅色文字 */
   font-size: 12px;
   font-weight: 800;
   padding: 4px 10px;
-  border-radius: 8px;
-  border: 1.5px solid var(--comic-line);
-  box-shadow: 1px 1.5px 0px var(--comic-line), 
-              3px 4px 0px rgba(0, 0, 0, 0.08);
   white-space: nowrap; /* 保证文字不折行 */
-  
-  /* 隐藏魔法：透明度为 0，并且往下沉一点点准备滑入 */
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none; /* 防止悬浮窗挡住鼠标点击图标 */
@@ -229,4 +240,59 @@ html[data-theme="dark"] #theme-toggle:hover h2 {
 .nav-item:hover .nav-tooltip {
   opacity: 1;
   transform: translateY(0); /* 滑回原位 */
+}
+
+/* =========================================
+   全局组件：胶囊切换栏 (Pill Tabs)
+========================================= */
+.page-tabs-wrapper {
+  /* 让整个胶囊栏居中，并在上下留出呼吸空间 */
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 100px;
+  margin-top: -1px; 
+  margin-bottom: 24px;
+}
+
+.tab-capsule {
+  display: flex;
+  background-color: var(--bg-color);
+  border: 2px solid var(--comic-line);
+  border-radius: 999px; /* 满级圆角，形成完美的药丸胶囊形状 */
+  padding: 2px; /* 外壳和按钮之间的内边距 */
+  gap: 2px;
+}
+
+.tab-btn {
+  /* 重置按钮默认样式 */
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  
+  /* 文本排版 */
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-sub);
+  padding: 6px 16px;
+  border-radius: 999px; /* 内部按钮也是圆角，贴合外壳 */
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 鼠标悬浮时的文字颜色加深 */
+.tab-btn:hover {
+  color: var(--text-main);
+}
+
+/* 🌟 当前选中状态 (.active) 的高光表现 */
+.tab-btn.active {
+  background-color: var(--primary-color); /* 填充主色 */
+  color: var(--comic-line); /* 确保文字在黄色背景上清晰 */
+}
+
+/* 🌙 深色模式适配 */
+html[data-theme="dark"] .tab-btn.active {
+  /* 深色模式下，可以保持高光，或者如果觉得黄色太刺眼，可以在这里微调 */
+  color: #1a1a1a; 
 }
